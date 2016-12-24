@@ -7,8 +7,10 @@ public class TextController : MonoBehaviour {
 	public Text text;
 	private enum States {
 		house_0, house_1, house_2, house_3, sword, village_0, village_1, village_2, village_3, village_4, village_5, warning_0, warning_1,
-		forest_0, forest_1, forest_2, forest_3, forest_climb, forest_fight, tree_cave_0, tree_cave_1, mountain_0, desert_0, game_over_0, game_over_1
-		
+		forest_0, forest_1, forest_2, forest_3, forest_4, forest_climb, forest_fight, tree_cave_0, tree_cave_1, master_sword, 
+		mountain_0, 
+		desert_0, 
+		game_over_0, game_over_1	
 	}
 	private States myState;
 	
@@ -38,12 +40,13 @@ public class TextController : MonoBehaviour {
 		//else if (myState == States.village_5) 	{village_5();}
 		else if (myState == States.forest_0) 		{forest_0();}
 		else if (myState == States.forest_1) 		{forest_1();}
-		//else if (myState == States.forest_2) 		{forest_2();}
-		//else if (myState == States.forest_2) 		{forest_3();}
+		else if (myState == States.forest_2) 		{forest_2();}
+		else if (myState == States.forest_3) 		{forest_3();}
+		else if (myState == States.forest_4) 		{forest_4();}
 		else if (myState == States.forest_climb) 	{forest_climb();}
-		else if (myState == States.forest_climb) 	{forest_fight();}
-		//else if (myState == States.tree_cave_0)	{tree_cave_0();}
-		//else if (myState == States.tree_cave_1)	{tree_cave_1();}
+		else if (myState == States.forest_fight) 	{forest_fight();}
+		else if (myState == States.tree_cave_0)		{tree_cave_0();}
+		else if (myState == States.tree_cave_1)		{tree_cave_1();}
 		//else if (myState == States.mountain_0)	{mountain_0();}
 		//else if (myState == States.desert_0)		{desert_0();}
 		else if (myState == States.game_over_0)		{game_over_0();}
@@ -134,6 +137,10 @@ public class TextController : MonoBehaviour {
 		if 		(Input.GetKeyDown(KeyCode.V))							{myState = States.village_0;}
 	}
 	
+	void village_4 () {
+		// COMPLETE THIS ////////////////////////////////////////////////////////////////////////////////////////////
+	}
+	
 	void forest_0 () {
 		text.text = "The sounds of the forest are almost calming. Birds chirp in the distance and you can occasionally catch a glimpse of some " +
 					"of the local wildlife. You come to a fork in the road. Down the [L]eft path, you hear the rush of water crashing onto rocks. Down " + 
@@ -158,20 +165,61 @@ public class TextController : MonoBehaviour {
 					"hind legs and comes crashing down at you. You could [D]odge out of the way, or attempt to [B]lock the creatures massive clawed feet with your " +
 					"shield, but you must act quickly!";
 		if 		(Input.GetKeyDown(KeyCode.D))							{myState = States.forest_fight;}
-		else if (Input.GetKeyDown(KeyCode.B))							{myState = States.game_over_1;}			
+		else if (Input.GetKeyDown(KeyCode.B))							{myState = States.game_over_1;}	// DONE		
 		
+	}
+	
+	void forest_3 () {
+		text.text = "The root is slippery, but you managed to carefully climb up the rest of the waterfall without incident. Pushing forward, deeper into the forest, " +
+					"you notice that all sound has stopped. Birds are no longer chirping, squirrels aren't running about. There is almost a serene calm all around. " +
+					"You come to a clearing, wild flowers grow all around and in the middle of the clearing stands a tall, anienct looking tree. You take comfort in the " +
+					"shade of the tree. At the base of the tree you notice a hole in the ground. The whole isn't very wide, but it looks very deep. Your curiosity gets " +
+					"the best of you and you feel compelled to [I]nvestigate the hole in the ground.";
+		if 		(Input.GetKeyDown(KeyCode.I))							{myState = States.tree_cave_0;}
+	}
+	
+	void forest_4 () {
+		text.text = "This time, as the beast comes crashing down on you, you brace yourself and shove your sword upwards, impaling the massive creature through the chest " +
+					". With a guttaral moan, the creature collapses at your feet. Victorious, you clean yourself off as best you can and move deeper into the forest. " +
+					"Eventually the forest begins to clear up and light finds its way to the forest floor once again. You come to a clearing, wild flowers grow all around " +
+					"and in the middle of the clearing stands a tall, anienct looking tree. You take comfort in the shade of the tree. At the base of the tree you notice a " +
+					"hole in the ground. The whole isn't very wide, but it looks very deep. Your curiosity gets the best of you and you feel compelled to [I]nvestigate the " +
+					"hole in the ground.";
+		if 		(Input.GetKeyDown(KeyCode.I))							{myState = States.tree_cave_0;}
 	}
 	
 	void forest_climb () {
 		text.text = "The climb is perilous, but you seem to have a grip on things. After a few minutes, however, the muscles in your hands begin to burn and ache. " +
 					"You reach up again and firmly grab hold of a root when you notice to possible foot holds. You could climb up onto a [M]ossy covered rock, which " +
 					"would offer you a quicker ascent. Or you could climb up onto a [R]oot that is slick from all the water, but the path looks to be longer.";
-		if 		(Input.GetKeyDown(KeyCode.M))							{myState = States.game_over_0;} // DO THIS
-		else if (Input.GetKeyDown(KeyCode.F))							{myState = States.forest_0;} // AND THIS 
+		if 		(Input.GetKeyDown(KeyCode.M))							{myState = States.game_over_0;}
+		else if (Input.GetKeyDown(KeyCode.R))							{myState = States.forest_3;}
 	}
 	
 	void forest_fight () {
-		text.text = "Realizing that this creature could easily overpower you through size alone, you nimbly dodge out of the way and quickly go to work with your sword";
+		text.text = "Realizing that this creature could easily overpower you through size alone, you nimbly dodge out of the way and quickly go to work with your sword." +
+					"You slash and stab at the beast, it reels back in pain and quickly back pedals to escape the onslaught. It sets its feet once more and rears up, " +
+					"Having seen this trick once before you know how to defeat it this time. You could [R]un to back from where you came or you could [F]inish it.";
+		if 		(Input.GetKeyDown(KeyCode.R))							{myState = States.forest_0;}
+		else if (Input.GetKeyDown(KeyCode.F))							{myState = States.forest_4;}
+	}
+	
+	void tree_cave_0 () {
+		text.text = "You reach an arm into the hole and feel a vast amount of space underneath this tree. You push further and further in until you are buried all the " +
+					"way up to your shoulder. There is suddenly a loud rumbling noise as the ground beneath you begins to shake. You feel yourself plunge, the ground " +
+					"swallowing you whole. There is nothing, only darkness and the sound of your own heart beating heavily. You stumble around in the darkness for a moment, " +
+					"barely able to keep your bearings, when a light comes into view. As you approach the light you see that it is shining down onto an object stuck in the " +
+					"ground. You approach it and realize that a sword is stuck in the ground. The sword seems to be of the finest craftmanship that you have ever seen. " +
+					"You [P]ull the sword from the ground and hold it up to the light.";
+		if 		(Input.GetKeyDown(KeyCode.P))							{has_mSword = true; myState = States.tree_cave_1;}
+	}
+	
+	void tree_cave_1 () {
+		text.text = "The weight of the sword is properly distributed and the edge is surprisingly sharp. Happy with your luck, you decide that this new sword will help you in your " +
+					"quest to save the princess. Securing your new weapon to your belt, you continue your search of the cave underneath the tree. It takes you quite a while, but you " +
+					"eventually find an exit. As you exit you hear a familiar rush of water and notice the waterfall from before not too far from where you now stand. Looking at the " +
+					"sky, you notice that the sun has started to set. You find the path and make your way back to the [V]illage.";
+		if 		(Input.GetKeyDown(KeyCode.V))							{myState = States.village_4;} // ADD THIS ///////////////////////////////////////////////////////////
 	}
 	
 	void game_over_0 () {
