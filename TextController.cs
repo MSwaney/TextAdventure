@@ -171,7 +171,7 @@ public class TextController : MonoBehaviour {
 	}
 	
 	void forest_fight () {
-		text.text = "Realizing that this creature could easily overpower you through size alone, you nimbly dodge out of the way and quickly go to work with your sword
+		text.text = "Realizing that this creature could easily overpower you through size alone, you nimbly dodge out of the way and quickly go to work with your sword";
 	}
 	
 	void game_over_0 () {
