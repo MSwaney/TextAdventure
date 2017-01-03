@@ -7,8 +7,8 @@ public class TextController : MonoBehaviour {
 	public Text text;
 	private enum States {
 		house_0, house_1, house_2, house_3, sword, village_0, village_1, village_2, village_3, village_4, village_5, warning_0, warning_1,
-		forest_0, forest_1, forest_2, forest_3, forest_4, forest_climb, forest_fight, tree_cave_0, tree_cave_1, master_sword, forest_done,
-		mountain_0, 
+		forest_0, forest_1, forest_2, forest_3, forest_4, forest_climb, forest_fight, tree_cave_0, tree_cave_1, forest_done,
+		mountain_0, mountain_1, mountain_2, mountain_3, mountain_4, rock_fall, mountain_fight, mountain_peak_0, mountain_peak_1, mountain_done,
 		desert_0, 
 		game_over_0, game_over_1	
 	}
@@ -53,8 +53,19 @@ public class TextController : MonoBehaviour {
 		else if (myState == States.tree_cave_1)		{tree_cave_1();}
 		else if (myState == States.forest_done) 	{forest_done();}
 		
-		//else if (myState == States.mountain_0)	{mountain_0();}
+		else if (myState == States.mountain_0)		{mountain_0();}
+		else if (myState == States.mountain_1)		{mountain_1();}
+		else if (myState == States.mountain_2)		{mountain_2();}
+		else if (myState == States.mountain_3)		{mountain_3();}
+		else if (myState == States.mountain_4)		{mountain_4();}
+		else if (myState == States.rock_fall) 		{rock_fall();}
+		else if (myState == States.mountain_fight) 	{mountain_fight();}
+		else if (myState == States.mountain_peak_0)	{mountain_peak_0();}
+		else if (myState == States.mountain_peak_1)	{mountain_peak_1();}
+		else if (myState == States.mountain_done) 	{mountain_done();}
+		
 		//else if (myState == States.desert_0)		{desert_0();}
+		
 		else if (myState == States.game_over_0)		{game_over_0();}
 		else if (myState == States.game_over_0)		{game_over_1();}
 	}
@@ -248,8 +259,56 @@ public class TextController : MonoBehaviour {
 		if 		(Input.GetKeyDown(KeyCode.V))							{myState = States.village_4;}
 	}
 	//// Mountain Level States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	void mountain_0 () {
+		text.text = "The journey to the mountains is long and arduous. Standing at it's base and looking up, you figure if the princess is going to held anywhere it would be at the top. " +
+					"You could take the [H]ard path up, covered in lots of debris and boulders the path would be slow going. Or you could take the [W]ell worn path up the mountain, which " +
+					"is easier going it seems.";
+					
+		if 		(Input.GetKeyDown(KeyCode.H))							{myState = States.mountain_1;}
+		else if (Input.GetKeyDown(KeyCode.W))							{myState = States.mountain_2;}
+	}
 	
+	void mountain_1 () {
+		text.text = "The path is harder than you thought. The path itself is narrow, filled with large boulders
+		
+		if 		(Input.GetKeyDown(KeyCode.C))							{myState = States.rock_fall;}
+		else if (Input.GetKeyDown(KeyCode.R))							{myState = States.mountain_0;}
+	}
+	
+	void mountain_2 () {
+		
+	}
+	
+	void mountain_3 () {
+		
+	}
+	
+	void mountain_4 () {
+		
+	}
+	
+	void rock_fall () {
+	
+	}
+	
+	void mountain_fight () {
+	
+	}
+	
+	void mountain_peak_0 () {
+	
+	}
+	
+	void mountain_peak_1 () {
+	
+	}
+	
+	void mountain_done () {
+	
+	}
 	//// Desert Level States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//// Castle Level States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	//// Game Over States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	void game_over_0 () {
