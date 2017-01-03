@@ -7,7 +7,7 @@ public class TextController : MonoBehaviour {
 	public Text text;
 	private enum States {
 		house_0, house_1, house_2, house_3, sword, village_0, village_1, village_2, village_3, village_4, village_5, warning_0, warning_1,
-		forest_0, forest_1, forest_2, forest_3, forest_4, forest_climb, forest_fight, tree_cave_0, tree_cave_1, master_sword, 
+		forest_0, forest_1, forest_2, forest_3, forest_4, forest_climb, forest_fight, tree_cave_0, tree_cave_1, master_sword, forest_done,
 		mountain_0, 
 		desert_0, 
 		game_over_0, game_over_1	
@@ -27,6 +27,9 @@ public class TextController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		print 	(myState);
+		print 	(has_sword);
+		print 	(has_mSword);
+		print 	(has_mShield);
 		if 		(myState == States.house_0)			{house_0();}
 		else if (myState == States.sword)			{sword();}
 		else if (myState == States.house_1)			{house_1();}
@@ -36,8 +39,9 @@ public class TextController : MonoBehaviour {
 		else if (myState == States.village_1) 		{village_1();}
 		else if (myState == States.village_2) 		{village_2();}
 		else if (myState == States.village_3) 		{village_3();}
-		//else if (myState == States.village_4) 	{village_4();}
+		else if (myState == States.village_4) 		{village_4();}
 		//else if (myState == States.village_5) 	{village_5();}
+		
 		else if (myState == States.forest_0) 		{forest_0();}
 		else if (myState == States.forest_1) 		{forest_1();}
 		else if (myState == States.forest_2) 		{forest_2();}
@@ -47,6 +51,8 @@ public class TextController : MonoBehaviour {
 		else if (myState == States.forest_fight) 	{forest_fight();}
 		else if (myState == States.tree_cave_0)		{tree_cave_0();}
 		else if (myState == States.tree_cave_1)		{tree_cave_1();}
+		else if (myState == States.forest_done) 	{forest_done();}
+		
 		//else if (myState == States.mountain_0)	{mountain_0();}
 		//else if (myState == States.desert_0)		{desert_0();}
 		else if (myState == States.game_over_0)		{game_over_0();}
@@ -60,6 +66,7 @@ public class TextController : MonoBehaviour {
 		has_mShield = false;
 	}
 	
+	//// Village States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	void house_0 () {
 		text.text = "You wake after a restless night. Ever since the princesses kidnapping you havent " + 
 					"been sleeping very well. From outside you hear the Town Crier yelling that the King " +
@@ -93,7 +100,7 @@ public class TextController : MonoBehaviour {
 	void sword () {
 		text.text = "The sword and shield have been handed down in your family for generations. Your father " +
 					"gave them to you as his father did before him. They aren't anything special, the sword is " +
-					"simple and made out of Steel while the shield is made of wood with a leather strap.\n\n" +
+					"simple and made out of Steel while the shield is made of wood with a leather strap." +
 					"You could [T]ake it with you on your adventure to save the princess. Or just [L]eave it there.";
 		if 		(Input.GetKeyDown(KeyCode.T)) 							{has_sword = true; myState = States.house_1;}
 		else if (Input.GetKeyDown(KeyCode.L)) 							{myState = States.house_0;}
@@ -105,6 +112,7 @@ public class TextController : MonoBehaviour {
 					"the road south leads to the [D]esert. The villain could have taken the Princess to any of these places. " + 
 					"Or, you could head back into your [H]ouse.";
 		if 		(Input.GetKeyDown(KeyCode.F) && has_sword == false) 	{myState = States.village_1;}
+		else if (Input.GetKeyDown(KeyCode.F) && has_mSword == true)		{myState = States.forest_done;}
 		else if (Input.GetKeyDown(KeyCode.F) && has_sword == true)		{myState = States.forest_0;}
 		else if (Input.GetKeyDown(KeyCode.M) && has_mShield == false)	{myState = States.village_2;}
 		else if (Input.GetKeyDown(KeyCode.M) && has_mShield == true)	{myState = States.mountain_0;}
@@ -138,14 +146,27 @@ public class TextController : MonoBehaviour {
 	}
 	
 	void village_4 () {
-		// COMPLETE THIS ////////////////////////////////////////////////////////////////////////////////////////////
+		text.text = "You walk back into town a little worse for wear. Looking around, nothing has changed. And why should it? You were " +
+					"gone for less than a day. You rest up in your house and then strike back out on your quest to be the one to save the " +
+					"princess. The road north leads to a [F]orest, the road west leads to the [M]ountains, and the road south leads to " +
+					"the [D]esert. The villain could have taken the Princess to any of these places. Or, you could head back into your [H]ouse.";
+		if 		(Input.GetKeyDown(KeyCode.F) && has_sword == false) 	{myState = States.village_1;}
+		else if (Input.GetKeyDown(KeyCode.F) && has_mSword == true)		{myState = States.forest_done;}
+		else if (Input.GetKeyDown(KeyCode.F) && has_sword == true)		{myState = States.forest_0;}
+		else if (Input.GetKeyDown(KeyCode.M) && has_mSword == false)	{myState = States.village_2;}
+		else if (Input.GetKeyDown(KeyCode.M) && has_mSword == true)		{myState = States.mountain_0;}
+		else if (Input.GetKeyDown(KeyCode.D) && has_mShield == false)	{myState = States.village_3;}
+		else if (Input.GetKeyDown(KeyCode.D) && has_mShield == true)	{myState = States.desert_0;}
+		else if (Input.GetKeyDown(KeyCode.H) && has_sword == false)		{myState = States.house_2;}
+		else if (Input.GetKeyDown(KeyCode.H) && has_sword == true)		{myState = States.house_3;}
 	}
 	
+	//// Forest Level States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	void forest_0 () {
 		text.text = "The sounds of the forest are almost calming. Birds chirp in the distance and you can occasionally catch a glimpse of some " +
 					"of the local wildlife. You come to a fork in the road. Down the [L]eft path, you hear the rush of water crashing onto rocks. Down " + 
-					"the [R]ight path, you notice that the woods become darker and much more forboding. There is no turning back now, you " +
-					"swallow hard and must pick a path.";
+					"the [R]ight path, you notice that the woods become darker and much more forboding. There is no turning back now, you swallow hard " +
+					"and must pick a path.";
 		if 		(Input.GetKeyDown(KeyCode.L))							{myState = States.forest_1;}
 		else if (Input.GetKeyDown(KeyCode.R))							{myState = States.forest_2;}
 	}
@@ -155,7 +176,7 @@ public class TextController : MonoBehaviour {
 					"roots jutting our from the cliff face. It seems easy enough to [C]limb, or you could return to the [F]ork and take your chances down the " + 
 					"path.";
 		if 		(Input.GetKeyDown(KeyCode.C))							{myState = States.forest_climb;}
-		else if (Input.GetKeyDown(KeyCode.F))							{myState = States.forest_3;}
+		else if (Input.GetKeyDown(KeyCode.F))							{myState = States.forest_0;}
 	}
 	
 	void forest_2 () {
@@ -165,8 +186,7 @@ public class TextController : MonoBehaviour {
 					"hind legs and comes crashing down at you. You could [D]odge out of the way, or attempt to [B]lock the creatures massive clawed feet with your " +
 					"shield, but you must act quickly!";
 		if 		(Input.GetKeyDown(KeyCode.D))							{myState = States.forest_fight;}
-		else if (Input.GetKeyDown(KeyCode.B))							{myState = States.game_over_1;}	// DONE		
-		
+		else if (Input.GetKeyDown(KeyCode.B))							{myState = States.game_over_1;}	
 	}
 	
 	void forest_3 () {
@@ -219,9 +239,19 @@ public class TextController : MonoBehaviour {
 					"quest to save the princess. Securing your new weapon to your belt, you continue your search of the cave underneath the tree. It takes you quite a while, but you " +
 					"eventually find an exit. As you exit you hear a familiar rush of water and notice the waterfall from before not too far from where you now stand. Looking at the " +
 					"sky, you notice that the sun has started to set. You find the path and make your way back to the [V]illage.";
-		if 		(Input.GetKeyDown(KeyCode.V))							{myState = States.village_4;} // ADD THIS ///////////////////////////////////////////////////////////
+		if 		(Input.GetKeyDown(KeyCode.V))							{myState = States.village_4;}
 	}
 	
+	void forest_done () {
+		text.text = "You enter the forest and nothing seems to have changed. You hear the sound of birds chirping and water rushing. You figure that the princess probably isn't being " +
+					"held here in the forest, so you decide to return to the [V]illage.";
+		if 		(Input.GetKeyDown(KeyCode.V))							{myState = States.village_4;}
+	}
+	//// Mountain Level States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//// Desert Level States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	//// Game Over States //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	void game_over_0 () {
 		text.text = "You place your foot onto the moss covered rock and feel confident in your choice. Placeing all of your weight onto the rock you quickly realize " +
 					"your mistake as your leg quickly shoots out from under you. The moss preventing you from getting a good foothold on the rock. You black out immediately " +
